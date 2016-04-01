@@ -1,0 +1,26 @@
+{
+  "name": "fbtest",
+  "description": "",
+  "main": "",
+  "authors": [
+    "Cade Nichols <cade@cadenichols.com>"
+  ],
+  "license": "MIT",
+  "moduleType": [],
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "firebase": "^2.4.2",
+    "jquery": "^2.2.2",
+    "angular": "^1.5.3",
+    "angularfire": "^1.2.0",
+    "angular-ui-router": "^0.2.18"
+  }
+}
