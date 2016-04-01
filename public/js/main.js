@@ -1,7 +1,61 @@
 'use strict';
 
-var app = angular.module('fireApp', ['firebase', 'ui.router']);
+var app = angular.module('fireApp', ['firebase', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 
+app.config(function($stateProvider, $urlRouterProvider) {
+  $stateProvider
+    .state('home', { url: '/', templateUrl: 'html/home.html' })
+    .state('profile', {
+      url: '/profile',
+      templateUrl: 'html/profile.html',
+      controller: 'profileCtrl',
+      resolve: {
+        profile: function($authObj, ProfileFactory) {
+          return $authObj.$requireAuth().then((authData) => {
+            return ProfileFactory(authData.uid).$loaded();
+          });
+        }
+      }
+    })
+  $urlRouterProvider.otherwise('/');
+});
+
+
+app.controller('profileCtrl', function($scope, $uibModal, $log, profile) {
+  $scope.profile = profile;
+
+  $scope.open = function() {
+    var modalInstance = $uibModal.open({
+      animation: true,
+      templateUrl: 'html/editProfileModal.html',
+      controller: 'editProfileModalCtrl',
+      size: 'lg',
+      resolve: {
+        profileToEdit: function() {
+          return angular.copy($scope.profile);
+        }
+      }
+    });
+    modalInstance.result.then(function(editedProfile) {
+      $scope.profile.name = editedProfile.name;
+      $scope.profile.color = editedProfile.color;
+      $scope.profile.$save();
+    }, function() {
+      $log.info('Modal dismissed at: ' + new Date());
+    });
+  };
+});
+
+
+app.controller('editProfileModalCtrl', function($scope, $uibModalInstance, profileToEdit) {
+  $scope.editProfile = profileToEdit;
+  $scope.save = function() {
+    $uibModalInstance.close($scope.profile);
+  };
+  $scope.cancel = function() {
+    $uibModalInstance.dismiss();
+  };
+});
 
 
 app.controller('mainCtrl', function($scope, $tweets, $authObj, ProfileFactory) {
@@ -9,7 +63,6 @@ app.controller('mainCtrl', function($scope, $tweets, $authObj, ProfileFactory) {
   $scope.authObj = $authObj;
 
   $scope.authObj.$onAuth(function(authData) {
-    console.log('authData:', authData);
     $scope.authData = authData;
     $scope.profile = ProfileFactory(authData.uid);
   });
@@ -62,7 +115,6 @@ app.filter('reverse', function() {
   };
 });
 
-app.constant('FB_URL', 'https://cades-cool-app.firebaseio.com/');
 
 app.factory('$tweets', function($firebaseArray, FB_URL) {
   var ref = new Firebase(FB_URL);
@@ -75,3 +127,4 @@ app.factory('$authObj', function($firebaseAuth, FB_URL) {
   return $firebaseAuth(ref);
 });
 
+app.constant('FB_URL', 'https://oijoijoijoijoijoijoi.firebaseio.com/');

@@ -2,38 +2,38 @@
 <html>
   <head>
     <title><%= title %></title>
+    <link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
     <link rel='stylesheet' href='/css/style.css' />
     <script src="/bower_components/jquery/dist/jquery.min.js"></script>
     <script src="/bower_components/angular/angular.js"></script>
     <script src="/bower_components/firebase/firebase.js"></script>
     <script src="/bower_components/angularfire/dist/angularfire.js"></script>
+    <script src="/bower_components/angular-animate/angular-animate.min.js"></script>
     <script src="/bower_components/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="/bower_components/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
     <script src="/js/main.js"></script>
   </head>
   <body ng-app='fireApp' ng-controller='mainCtrl'>
-    <h1>AngularFire!</h1>
+    <div class="container">
+      <h1>AngularFire!</h1>
 
-    <div ng-hide='authData'>
-      Register / Login!
-      <div>
-        <input type="text" ng-model='newUser.email' placeholder="Email">
-        <input type="password" ng-model='newUser.password' placeholder="Password">
-        <button ng-click='register(newUser)'>Register</button>
-        <button ng-click='login(newUser)'>Login</button>
+      <div ng-hide='authData'>
+        Register / Login!
+        <div>
+          <input type="text" ng-model='newUser.email' placeholder="Email">
+          <input type="password" ng-model='newUser.password' placeholder="Password">
+          <button ng-click='register(newUser)'>Register</button>
+          <button ng-click='login(newUser)'>Login</button>
+        </div>
       </div>
-    </div>
-    <div ng-show='authData'>
-      <button ng-click='logout()'>Logout</button>
+      <div ng-show='authData'>
+        <button ng-click='logout()'>Logout</button>
+      </div>
 
-      <img ng-src="{{authData.password.profileImageURL}}" alt="">
-
-      <label>Name:</label>
-      <input type="text" ng-model='profile.name'>
-      <label>Favorite Color:</label>
-      <input type="color" ng-model='profile.color'>
-
-      <button ng-click='profile.$save()'>Save</button>
-
+      <button ui-sref='home'>Home</button>
+      <button ui-sref='profile'>Profile</button>
+    
+      <ui-view></ui-view>
     </div>
 
   </body>
