@@ -2,7 +2,7 @@
 
 var app = angular.module('fireApp', ['firebase', 'ui.router', 'ui.bootstrap', 'ngAnimate']);
 
-app.constant('FB_URL', 'https://oijoijoijoijoijoijoi.firebaseio.com/');
+app.constant('FB_URL', 'PUT YOUR FIREBASE URL HERE');
 
 app.config(function($stateProvider, $urlRouterProvider) {
   $stateProvider
