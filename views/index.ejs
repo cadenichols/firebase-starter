@@ -27,11 +27,12 @@
         </div>
       </div>
       <div ng-show='authData'>
+        <button ui-sref='profile'>Profile</button>
         <button ng-click='logout()'>Logout</button>
       </div>
 
       <button ui-sref='home'>Home</button>
-      <button ui-sref='profile'>Profile</button>
+      <button ui-sref='threads'>Threads</button>
     
       <ui-view></ui-view>
     </div>

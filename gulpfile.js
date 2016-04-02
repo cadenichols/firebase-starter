@@ -1,3 +1,5 @@
+'use strict';
+
 var gulp = require('gulp');
 var uglify = require('gulp-uglify');
 var babel = require('gulp-babel');
@@ -9,13 +11,14 @@ var gulpif = require('gulp-if');
 var sourcemaps = require('gulp-sourcemaps');
 var plumber = require('gulp-plumber');
 var nodemon = require('gulp-nodemon');
+var bower = require('gulp-bower');
 
 ////////////
 // General Tasks
 
 gulp.task('default', ['build', 'serve', 'watch']);
 
-gulp.task('build', ['js', 'css', 'html']);
+gulp.task('build', ['bower', 'js', 'css', 'html']);
 
 gulp.task('watch', ['watch:js', 'watch:css', 'watch:html'])
 
@@ -24,6 +27,10 @@ gulp.task('serve', function() {
     ext: 'js css ejs html',
     ignore: ['public/*', 'client/*', 'node_modules/*']
   });
+});
+
+gulp.task('bower', function() {
+  return bower();
 });
 
 ////////////

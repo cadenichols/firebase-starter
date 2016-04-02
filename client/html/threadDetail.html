@@ -1,0 +1,17 @@
+<h1>Thread Detail!</h1>
+
+<h2>Subject: {{thread.subject}}</h2>
+
+
+<div ng-show='authData'>
+  <textarea cols="60" rows="4" ng-model='newPost.text' placeholder="Post Text"></textarea>
+  <button class="btn btn-success" ng-click='addPost()'>Post!</button>
+</div>
+
+<ul>
+  <li ng-repeat='post in posts' ng-style='{color: post.color}'>{{post.name}} - {{post.text}}</li>
+</ul>
+
+
+
+

@@ -30,7 +30,7 @@ app.controller('profileCtrl', function($scope, $uibModal, $log, profile) {
 app.controller('editProfileModalCtrl', function($scope, $uibModalInstance, profileToEdit) {
   $scope.editProfile = profileToEdit;
   $scope.save = function() {
-    $uibModalInstance.close($scope.profile);
+    $uibModalInstance.close($scope.editProfile);
   };
   $scope.cancel = function() {
     $uibModalInstance.dismiss();

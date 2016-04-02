@@ -24,3 +24,49 @@ app.factory('$authObj', function($firebaseAuth, FB_URL) {
   return $firebaseAuth(ref);
 });
 
+app.service('$threads', function($firebaseArray, $firebaseObject, FB_URL) {
+  var ref = new Firebase(FB_URL);
+  var threadsRef = ref.child('threads');
+
+  this.getArray = function() {
+    return $firebaseArray(threadsRef);
+  };
+  this.create = function(subject) {
+    return this.getArray().$loaded()
+    .then(function(threads) {
+      return threads.$add({
+        subject: subject
+      });
+    });
+  };
+  this.getThread = function(threadId) {
+    var singleThreadRef = threadsRef.child(threadId);
+    return $firebaseObject(singleThreadRef);
+  };
+  this.getPosts = function(threadId) {
+    var postsRef = threadsRef.child(threadId).child('posts');
+    return $firebaseArray(postsRef);
+  };
+});
+
+
+// app.factory('$threads', function($firebaseArray, FB_URL) {
+//   var ref = new Firebase(FB_URL);
+//   var threadsRef = ref.child('threads');
+
+//   return {
+//     getArray: function() {
+//       return $firebaseArray(threadsRef);
+//     },
+//     create: function(subject) {
+//       return this.getArray().$loaded()
+//       .then(function(threads) {
+//         return threads.$add({
+//           subject: subject
+//         });
+//       });
+//     }
+//   };
+
+// });
+

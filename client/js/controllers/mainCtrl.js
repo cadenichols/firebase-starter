@@ -8,7 +8,11 @@ app.controller('mainCtrl', function($scope, $tweets, $authObj, ProfileFactory) {
 
   $scope.authObj.$onAuth(function(authData) {
     $scope.authData = authData;
-    $scope.profile = ProfileFactory(authData.uid);
+    if(authData) {
+      $scope.profile = ProfileFactory(authData.uid);
+    } else {
+      $scope.profile = null;
+    }
   });
 
   $scope.logout = function() {
